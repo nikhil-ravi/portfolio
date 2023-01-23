@@ -8,6 +8,7 @@ import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import QRCodeContainer from "@/components/QRCodeContainer";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 export default function RootLayout({ children }) {
   const [showQR, setShowQR] = useState(false);
@@ -21,6 +22,9 @@ export default function RootLayout({ children }) {
       */}
         <head />
         <body className="">
+          {process.env.NODE_ENV === "production" && (
+            <GoogleAnalytics strategy="lazyOnload" />
+          )}
           <NavigationBar />
           {children}
           <Footer setShowQR={setShowQR} showQR={showQR} />
