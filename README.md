@@ -2,7 +2,7 @@
 
 This is my personal webpage built using Next.js, Tailwind CSS, Framer Motion and hosted on Vercel.
 
-Inspired by this [template[(https://github.com/j471n/j471n.in).
+Inspired by this [template](https://github.com/j471n/j471n.in).
 
 ## Usage
 
