@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.chowkabhara.com
+
+# Sitemaps
+Sitemap: https://www.chowkabhara.com/sitemap.xml
+Sitemap: https://www.chowkabhara.com/server-sitemap.xml

@@ -14,34 +14,34 @@ export default function Head() {
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta
         name="description"
-        content={pageMeta.home.description || "Nikhil Ravi"}
+        content={pageMeta.about.description || "Nikhil Ravi"}
       />
-      <title>{`${pageMeta.home.title || ""} Nikhil Ravi`}</title>
+      <title>{`${pageMeta.about.title || ""} Nikhil Ravi`}</title>
       <meta name="theme-color" content="#000" />
       <link rel="shortcut icon" href="/favicon.ico" />
       <link rel="manifest" href="/manifest.json" />
-      <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"></link>
+      <link rel="apple-touch-icon" href="/icons/icon-192x192.png"></link>
       <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       <meta name="author" content="Nikhil Ravi"></meta>
       <meta name="robots" content="index,follow" />
       <meta
         name="keywords"
         content={`${
-          pageMeta.home.keywords || ""
+          pageMeta.about.keywords || ""
         } Nikhil, Nikhil Ravi, nikhil--ravi, nikhil-ravi`}
       />
       {/* Og */}
       <meta
         property="og:title"
-        content={`${pageMeta.home.title || ""} Nikhil Ravi`}
+        content={`${pageMeta.about.title || ""} Nikhil Ravi`}
       />
       <meta
         property="og:description"
-        content={pageMeta.home.description || "Nikhil Ravi"}
+        content={pageMeta.about.description || "Nikhil Ravi"}
       />
       <meta property="og:site_name" content="Nikhil Ravi" />
       <meta property="og:url" content="/" key="ogurl" />
-      <meta property="og:image" content={pageMeta.home.previewImage || ""} />
+      <meta property="og:image" content={pageMeta.about.previewImage || ""} />
       {/* Barlow */}
       <link
         rel="preload"
