@@ -26,7 +26,7 @@ import {
 } from "react-icons/si";
 import { FaReact } from "react-icons/fa";
 import { useDarkMode } from "@/context/DarkModeProvider";
-import * as WindowsAnimation from "@/lib/windowsAnimation";
+import * as WindowsAnimation from "@/lib/WindowsAnimation";
 import { StatsmodelsIcon, MATLABIcon, GCPIcon, RayIcon } from "../Icons";
 
 export default function SkillSection({ skills }) {
