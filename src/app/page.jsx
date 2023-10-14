@@ -67,7 +67,7 @@ export default function Home() {
                 processes, optimization, and probability theory. Skilled in
                 time-series predictive modeling, causal inference, and
                 hypothetical testing. Looking for full-time data
-                science/quantitative research roles starting May 2023.
+                science/quantitative research roles starting December 2023.
               </motion.p>
             </div>
 
