@@ -23,7 +23,7 @@ export default function NavigationBar() {
 
   //   Add shadow and backdrop to the navigation bar as we scroll
   const addShadow = useCallback(() => {
-    if (window.pageYOffset > 10) {
+    if (window.scrollY > 10) {
       navRef.current.classList.add(
         ...[
           "shadow",
