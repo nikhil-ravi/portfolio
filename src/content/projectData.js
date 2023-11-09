@@ -58,4 +58,15 @@ module.exports = [
     tools: ["Python", "Neo4j"],
     pinned: true,
   },
+  {
+    id: 5,
+    name: "Harry Potter Interaction Network",
+    coverURL: "https://imgur.com/hkoDtP7.png",
+    description:
+      "A network of characters in the Harry Potter series and their interactions with each other.",
+    githubURL: "https://github.com/nikhil-ravi/Harry-Potter-Network",
+    tools: ["Python", "Neo4j", "Cytoscape.js", "SpaCy", "FastCoref"],
+    pinned: true,
+    previewURL: "/harry-potter-network",
+  },
 ];
