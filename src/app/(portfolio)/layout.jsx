@@ -1,13 +1,13 @@
 "use client";
 
-import "./globals.css";
+import "../globals.css";
 
 import { useState } from "react";
 import { DarkModeProvider } from "@/context/DarkModeProvider";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import QRCodeContainer from "@/components/QRCodeContainer";
-import ScrollToTopButton from "../components/ScrollToTopButton";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
 export default function RootLayout({ children }) {
