@@ -1,0 +1,48 @@
+---
+title: Web Scraping
+order: 1
+description: To kickstart our journey into the Harry Potter universe, the first step is to gather a comprehensive list of characters, including details such as their first appearance, aliases, loyalties, and more. Fortunately, the Harry Potter Fandom Wiki provides this information, making it an ideal source for our web scraping endeavor.
+date: 11/06/2023
+keywords: web scraping, python, beautifulsoup, selenium, scrapy
+---
+
+## Creating a Network of Harry Potter Characters - Part 1: Web Scraping
+
+The magical world of J.K. Rowling's Harry Potter series is a treasure trove of rich characters, intricate relationships, and captivating narratives. Analyzing the interactions and connections between these characters can unveil fascinating insights into the wizarding universe. In this blog series, we'll explore how to create a character interaction network for the Harry Potter series.
+
+## Part 1: Web Scraping the List of Characters
+
+To kickstart our journey into the Harry Potter universe, the first step is to gather a comprehensive list of characters, including details such as their first appearance, aliases, loyalties, and more. Fortunately, the [Harry Potter Fandom Wiki](https://harrypotter.fandom.com/wiki/Main_Page)'s [Character Indexes](https://harrypotter.fandom.com/wiki/Category:Character_indexes) page provides this information, making it an ideal source for our web scraping endeavor. For each book in the series, these indexes contain a list of characters by the chapter in which they first appear. For example, here's the list of characters from the first chapter of the first book, [Harry Potter and the Sorcerer's Stone](<https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)>), in the series:
+
+- Vernon Dursley
+- Petunia Dursley
+- Dudley Dursley
+- Lily Potter
+- James Potter
+- Harry Potter
+- Lord Voldemort
+- Jim McGuffin
+- Ted
+- Vernon Dursley's secretary
+- Albus Dumbledore
+- Minerva McGonagall
+- Dedalus Diggle
+- Poppy Pomfrey
+- Gemma Jones
+- Rubeus Hagrid
+- Sirius Black
+
+We'll use Python and a few libraries to scrape and extract the character data from the wiki. Here's how we do it:
+
+### Setting up the Environment
+
+Before we dive into the web scraping process, let's make sure we have the necessary tools and libraries at our disposal.
+
+1. **Python**: Ensure you have Python installed on your system.
+2. **Requests**: This library allows us to send HTTP requests to the web pages we want to scrape.
+3. **Beautiful Soup** is a Python library that helps parse HTML and XML documents. It makes it easy to navigate, search, and modify the parse tree.
+
+```python
+import requests
+import bs4
+```
