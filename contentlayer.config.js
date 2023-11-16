@@ -81,6 +81,10 @@ const computedFields = {
     type: "string",
     resolve: (doc) => doc._raw.flattenedPath.split("/").slice(2).join("/"),
   },
+  sectionAsParams: {
+    type: "string",
+    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1)[0],
+  },
   readingTime: {
     type: "nested",
     of: ReadTimeResults,
@@ -99,7 +103,7 @@ const computedFields = {
 
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
-  filePathPattern: `HarryPotter/articles/**/*.mdx`,
+  filePathPattern: `articles/**/*.mdx`,
   contentType: "mdx",
   fields: {
     title: {
@@ -125,6 +129,12 @@ export const Doc = defineDocumentType(() => ({
     keywords: {
       type: "string",
       required: true,
+    },
+    next: {
+      type: "string",
+    },
+    previous: {
+      type: "string",
     },
   },
   computedFields,
@@ -156,7 +166,7 @@ const rehypeAutolinkHeadingsOptions = {
 };
 
 export default makeSource({
-  contentDirPath: "src/content",
+  contentDirPath: "src/content/HarryPotter",
   documentTypes: [Doc],
   mdx: {
     remarkPlugins: [remarkGfm],

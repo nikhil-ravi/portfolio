@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useContext, useEffect, createContext } from "react";
 const DarkModeContext = createContext(undefined);
 
@@ -34,7 +35,7 @@ export function DarkModeProvider({ children }) {
 export const useDarkMode = () => {
   const context = useContext(DarkModeContext);
   if (context === undefined) {
-    throw new Error("useAuth can only be used inside AuthProvider");
+    throw new Error("useDarkMode can only be used inside DarkModeProvider");
   }
   return context;
 };

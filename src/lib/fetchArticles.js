@@ -7,10 +7,18 @@ export async function getAllDocs() {
   return docs.sort((a, b) => a.order - b.order);
 }
 
-export async function getDocFromSlug(slug) {
-  const doc = allDocs.find((doc) => doc.slugAsParams === slug);
+export async function getAllDocsInSection(section) {
+  const docs = allDocs.filter((doc) => doc.sectionAsParams === section);
+
+  if (!docs) notFound();
+  return docs.sort((a, b) => a.order - b.order);
+}
+
+export async function getDocInSectionBySlug(section, slug) {
+  const doc = allDocs.find(
+    (doc) => doc.slugAsParams === slug && doc.sectionAsParams === section
+  );
 
   if (!doc) notFound();
-
   return doc;
 }

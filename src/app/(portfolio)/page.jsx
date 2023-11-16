@@ -15,7 +15,7 @@ import SkillSection from "@/components/Home/SkillsSection";
 export default function Home() {
   const skills = getPinnedSkills();
   return (
-    <div className="relative dark:bg-darkPrimary dark:text-gray-100 max-w-4xl 2xl:max-w-5xl 3xl:max-w-7xl mx-auto">
+    <div className="relative dark:text-gray-100 max-w-4xl 2xl:max-w-5xl 3xl:max-w-7xl mx-auto">
       <motion.section
         initial="hidden"
         whileInView="visible"

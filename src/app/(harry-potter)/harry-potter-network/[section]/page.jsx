@@ -1,9 +1,9 @@
-import BlogLayout from "@/layout/BlogLayout";
-import { getAllDocs, getDocFromSlug } from "@/lib/fetchArticles";
+import BlogLayout from "@/components/BlogLayout";
 import Mdx from "@/components/Mdx";
+import { getAllDocs, getDocInSectionBySlug } from "@/lib/fetchArticles";
 
-const Article = async ({ params: { slug } }) => {
-  const doc = await getDocFromSlug(slug);
+export default async function Page({ params: { section } }) {
+  const doc = await getDocInSectionBySlug(section, section);
   const meta = {
     title: doc.title,
     date: doc.date,
@@ -17,13 +17,12 @@ const Article = async ({ params: { slug } }) => {
       <Mdx code={doc.body.code} />
     </BlogLayout>
   );
-};
+}
 
 export async function generateStaticParams() {
   const docs = await getAllDocs();
-  return docs.map((doc) => {
-    slug: doc.slugAsParams;
-  });
-}
 
-export default Article;
+  return docs.map((doc) => ({
+    section: doc.sectionAsParams,
+  }));
+}

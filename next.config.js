@@ -11,7 +11,7 @@ module.exports = withContentlayer(
   withPWA({
     productionBrowserSourceMaps: true,
     reactStrictMode: true,
-    swcMinify: true,
+    // swcMinify: true,
     images: {
       domains: [
         "ucarecdn.com",

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Code from "./Code";
 import CodeSandbox from "./CodeSandbox";
 import CodeTitle from "./CodeTitle";
@@ -12,6 +13,8 @@ import Tip from "./Tip";
 import UrlMetaInfo from "./UrlMetaInfo";
 import Warning from "./Warning";
 import YouTube from "./YouTube";
+import Graph from "@/components/HarryPotter/Graph";
+import ListOfArticlesInSection from "@/components/HarryPotter/ListOfArticlesInSection";
 
 const MDXComponents = {
   Codepen,
@@ -28,6 +31,9 @@ const MDXComponents = {
   UrlMetaInfo,
   pre: Pre,
   code: Code,
+  Graph,
+  ListOfArticlesInSection,
+  a: ({ href, children }) => <Link href={href}>{children}</Link>,
 };
 
 export default MDXComponents;

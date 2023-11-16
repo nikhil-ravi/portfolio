@@ -6,7 +6,7 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { FadeContainer, popUp } from "@/content/FramerMotionVariants";
 import { useDarkMode } from "@/context/DarkModeProvider";
 import { navigationRoutes } from "@/content/navigationRoutes";
-import { FiMoon, FiSun } from "react-icons/fi";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 import NavItem from "./NavigationBar/NavItem";
 import HamBurger from "./NavigationBar/Hamburger";
@@ -126,13 +126,12 @@ export default function NavigationBar() {
         variants={popUp}
         className="cursor-pointer rounded-full z-30 transition active:scale-75"
         title="Toggle Theme"
-        onClick={() => changeDarkMode(!isDarkMode)}
       >
-        {!isDarkMode ? (
-          <FiMoon className="h-6 w-6 sm:h-7 sm:w-7 select-none transition active:scale-75" />
-        ) : (
-          <FiSun className="h-6 w-6 sm:h-7 sm:w-7 select-none transition active:scale-75" />
-        )}
+        <DarkModeSwitch
+          checked={isDarkMode}
+          onChange={changeDarkMode}
+          size={24}
+        />
       </motion.div>
     </div>
   );

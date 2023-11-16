@@ -1,0 +1,340 @@
+---
+title: Web Scraping
+order: 1
+description: To kickstart our journey into the Harry Potter universe, the first step is to gather a comprehensive list of characters, including details such as their first appearance, aliases, loyalties, and more. Fortunately, the Harry Potter Fandom Wiki provides this information, making it an ideal source for our web scraping endeavor.
+date: 11/06/2023
+next: entity-matching
+previous: data
+keywords: web scraping, python, beautifulsoup, selenium, scrapy
+---
+
+## Creating a Network of Harry Potter Characters - Part 1: Web Scraping
+
+The magical world of J.K. Rowling's Harry Potter series is a treasure trove of rich characters, intricate relationships, and captivating narratives. Analyzing the interactions and connections between these characters can unveil fascinating insights into the wizarding universe. In this blog series, we'll explore how to create a character interaction network for the Harry Potter series.
+
+## Part 1: Web Scraping the List of Characters
+
+To kickstart our journey into the Harry Potter universe, the first step is to gather a comprehensive list of characters, including details such as their first appearance, aliases, loyalties, and more. Fortunately, the [Harry Potter Fandom Wiki](https://harrypotter.fandom.com/wiki/Main_Page)'s [Character Indexes](https://harrypotter.fandom.com/wiki/Category:Character_indexes) page provides this information, making it an ideal source for our web scraping endeavor. For each book in the series, these indexes contain a list of characters by the chapter in which they first appear. For example, here's the list of characters from the first chapter of the first book, [Harry Potter and the Sorcerer's Stone](<https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)>), in the series:
+
+<div className="flex justify-between">
+    <ul>
+        <li>Vernon Dursley</li>
+        <li>Lily Potter</li>
+        <li>Lord Voldemort</li>
+        <li>Vernon Dursley's secretary</li>
+        <li>Dedalus Diggle</li>
+        <li>Rubeus Hagrid</li>
+    </ul>
+    <ul>
+        <li>Petunia Dursley</li>
+        <li>James Potter</li>
+        <li>Jim McGuffin</li>
+        <li>Albus Dumbledore</li>
+        <li>Poppy Pomfrey</li>
+        <li>Sirius Black</li>
+    </ul>
+    <ul>
+        <li>Dudley Dursley</li>
+        <li>Harry Potter</li>
+        <li>Ted</li>
+        <li>Minerva McGonagall</li>
+        <li>Gemma Jones</li>
+    </ul>
+</div>
+
+We'll use Python and a few libraries to scrape and extract the character data from the wiki. The first step is to identify the HTML elements that contain the character names. We can do this by inspecting the HTML of the page. For example, here's the HTML for the first character in the list above, Vernon Dursley:
+
+<CodeTitle title="Vernon_Dursley.html" lang="html" />
+```html
+<table class="article-table">
+    <tbody>
+        <tr>
+            <td>
+                <a href="/wiki/Vernon_Dursley" title="Vernon Dursley">
+                Vernon Dursley
+                </a>
+            </td>
+            <td>
+                <figure class="thumb tright show-info-icon" style="width: 115px">
+                <a
+                    href="https://static.wikia.nocookie.net/harrypotter/images/2/20/Vernon_Dursley.jpg/revision/latest?cb=20160121162004"
+                    class="image"
+                >
+                    <img
+                    alt="Vernon Dursley"
+                    src="https://static.wikia.nocookie.net/harrypotter/images/2/20/Vernon_Dursley.jpg/revision/latest/scale-to-width-down/115?cb=20160121162004"
+                    decoding="async"
+                    loading="lazy"
+                    width="115"
+                    height="161"
+                    class="thumbimage"
+                    data-image-name="Vernon Dursley.jpg"
+                    data-image-key="Vernon_Dursley.jpg"
+                    data-relevant="1"
+                    />
+                </a>
+                <figcaption class="thumbcaption">
+                    <a href="/wiki/File:Vernon_Dursley.jpg" class="info-icon">
+                    <svg>
+                        <use xlink:href="#wds-icons-info-small"></use>
+                    </svg>
+                    </a>
+                </figcaption>
+                </figure>
+            </td>
+        </tr>
+        <tr> <!-- ...other characters --> </tr>
+    </tbody>
+</table>
+```
+The characters are contained in a table with the class <code>article-table</code>. Each character is contained in the <code>\<a/></code> tag with the <code>title</code> attribute set to the character's name. We can use the <code>requests</code> library to send an HTTP request to the page and the <code>BeautifulSoup</code> library to parse the HTML and extract the character names. 
+
+### Setting up the Environment
+
+Before we dive into the web scraping process, let's make sure we have the necessary tools and libraries at our disposal.
+
+1. **Python**: Ensure you have Python installed on your system.
+2. **Requests**: This library allows us to send HTTP requests to the web pages we want to scrape.
+3. **Beautiful Soup** is a Python library that helps parse HTML and XML documents. It makes it easy to navigate, search, and modify the parse tree.
+
+We can install these libraries using the <code>pip</code> package manager. If you don't have <code>pip</code> installed, you can follow the instructions [here](https://pip.pypa.io/en/stable/installation/) to install it. Once you have <code>pip</code> installed, you can install the libraries by running the following commands in your terminal:
+
+```bash
+pip install requests beautifulsoup4
+```
+
+### Scraping the list of Characters
+
+We first define the URL of the page we want to scrape. We'll use the URL of the first book in the series, [Harry Potter and the Sorcerer's Stone](<https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)>), as an example. 
+```python
+BASE_URL = "https://harrypotter.fandom.com"
+CHARACTERS_LIST_URL_EXAMPLE = (
+    BASE_URL + "/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)"
+)
+```
+
+Each character's page on the wiki contains additional information about the character, such as their aliases, loyalties, and family relations.
+![Character Info](/img/character_info.png)
+We can use the <code>requests</code> library to send an HTTP request to the page and the <code>BeautifulSoup</code> library to parse the HTML and extract these fields.
+<CodeTitle title="Aliases" lang="python"/>
+```python
+def get_aliases(soup: BeautifulSoup) -> list[str]:
+    """Gets a list of aliases for a character.
+
+    Args:
+        soup (BeautifulSoup): The soup object for the character's page.
+
+    Returns:
+        list[str]: A list of aliases for the character.
+    """
+    aliases_list = []
+    aliases = soup.find("div", attrs={"data-source": "alias"}).findAll("li")
+    for a in aliases:
+        if "disguise" in a.text or "the name he told" in a.text:
+            continue
+        aliases_list.append(a.text.split("[")[0].split("(")[0].strip())
+    return aliases_list
+```
+<CodeTitle title="Loyalties" lang="python"/>
+```python
+def get_loyalties(soup: BeautifulSoup) -> list[str]:
+    """Gets a list of loyalties for a character.
+
+    Args:
+        soup (BeautifulSoup): The soup object for the character's page.
+
+    Returns:
+        list[str]: A list of loyalties for the character.
+    """
+    loyalties_list = []
+    loyalties = soup.find("div", attrs={"data-source": "loyalty"}).findAll("li")
+    for l in loyalties:
+        if not l.find("ul"):
+            loyalties_list.append(l.text.split("[")[0].split("(")[0].strip())
+        else:
+            loyalties_list.append(l.find("a").text.split("[")[0].split("(")[0].strip())
+
+    return loyalties_list
+```
+<CodeTitle title="Relationships" lang="python" />
+```python
+def get_family_relationships(soup: BeautifulSoup) -> list[dict[str, str]]:
+    """Gets a list of family relationships for a character.
+
+    Args:
+        soup (BeautifulSoup): The soup object for the character's page.
+
+    Returns:
+        list[dict[str, str]]: A list of family relationships for the character.
+    """
+    relationships_list = []
+    relationships = soup.find("div", attrs={"data-source": "family"}).findAll("li")
+    for rel in relationships:
+        character = rel.text.split("[")[0].split("(")[0].strip()
+        rel_type = rel.text.split("(")[-1].split(")")[0].split("[")[0]
+        relationships_list.append({"person": character, "type": rel_type})
+    return relationships_list
+```
+Other fields such as _blood_status_, _nationality_, _species_, _house_, and _gender_  can be extracted using a similar approach. 
+<CodeTitle title="Other fields" lang="python" />
+```python
+def get_field(soup: BeautifulSoup, field_name: str) -> str:
+    """Gets a field for a character.
+
+    Args:
+        soup (BeautifulSoup): The soup object for the character's page.
+        field_name (str): The name of the field to get.
+
+    Returns:
+        str: The value of the field.
+    """
+    field_value = (
+        soup.find("div", attrs={"data-source": field_name})
+        .find("div")
+        .text.split("[")[0]
+        .split("(")[0]
+        .strip()
+    )
+    return field_value
+```
+We'll define a list of tuples, where each tuple contains the name of the field and a function that extracts the value of the field from the HTML. We'll use this list to extract the values of these fields from the HTML.
+```python
+ATTRIBUTES_TO_SCRAPE = [
+    ("aliases", get_aliases),
+    ("loyalties", get_loyalties),
+    ("family_relations", get_family_relationships),
+    ("blood_status", lambda soup: get_field(soup, "blood")),
+    ("nationality", lambda soup: get_field(soup, "nationality")),
+    ("species", lambda soup: get_field(soup, "species")),
+    ("house", lambda soup: get_field(soup, "house")),
+    ("gender", lambda soup: get_field(soup, "gender")),
+]
+```
+
+We define a <code>Character</code> dataclass to represent a character. The class contains the character's name, the URL of their page on the wiki, and the additional information we extract from the page. We also define a <code>Chapter</code> dataclass to represent a chapter in a Harry Potter book and the characters mentioned in it.
+<CodeTitle title="Character dataclass" lang="python" />
+```python
+@dataclass
+class Character:
+    """Represents a Harry Potter character with associated attributes."""
+
+    title: str
+    href: str
+    aliases: list = None
+    loyalties: list = None
+    famliy_relations: list = None
+    blood_status: str = None
+    nationality: str = None
+    species: str = None
+    house: str = None
+    gender: str = None
+
+    def set_attr(self, attr: str, value):
+        """Sets the value of an attribute.
+
+        Args:
+            attr (str): The name of the attribute to set.
+            value (_type_): The value to set the attribute to.
+        """
+        setattr(self, attr, value)
+
+    def enrich(self) -> None:
+        """Adds additional information to a character.
+
+        Args:
+            character (Character): The character to add information to.
+        """
+        res = requests.get(BASE_URL + self.href).text
+        soup = BeautifulSoup(res, "html.parser")
+        for attr_name, scraper_func in ATTRIBUTES_TO_SCRAPE:
+            try:
+                value = scraper_func(soup)
+                self.set_attr(attr_name, value)
+            except Exception as e:
+                pass
+
+@dataclass
+class Chapter:
+    """Represents a chapter in a Harry Potter book and the characters mentioned in it."""
+
+    chapter: int
+    characters: list[Character]
+```
+
+{/* Talk about the get_characters_by_chapter method */}
+We use the <code>get_characters_by_chapter</code> method to scrape the list of characters from the wiki. The method takes the URL of the page to scrape as an argument and returns a list of <code>Chapter</code> objects. Each <code>Chapter</code> object contains the chapter number and a list of <code>Character</code> objects. We use the <code>requests</code> library to send an HTTP request to the page and the <code>BeautifulSoup</code> library to parse the HTML and extract the character names.
+<CodeTitle title="Scraping Characters From the Harry Potter Wiki" lang="python" />
+```python
+def get_characters_by_chapter(url: str = CHARACTERS_LIST_URL_EXAMPLE) -> list[Chapter]:
+    """Gets a list of chapters and the characters mentioned in them.
+    
+    Args:
+        url (str, optional): The url of the page to scrape. Defaults to CHARACTERS_LIST_URL_EXAMPLE.
+
+    Returns:
+        list[Chapter]: A list of chapters and the characters mentioned in them.
+    """
+    res = requests.get(url).text
+    soup = BeautifulSoup(res, "html.parser")
+    div = soup.find_all("div", class_="mw-parser-output")
+    chapter_sections = div[0].find_all("h2")
+    chapters = []
+    chapter_idx = 1
+    for chapter_section in chapter_sections:
+        try:
+            chapter_name = chapter_section.find("span", class_="mw-headline").text
+            if not (
+                chapter_name.startswith("Chapter")
+                or chapter_name.startswith("Epilogue")
+            ):
+                continue
+        except AttributeError:
+            continue
+
+        next_sibling = chapter_section.find_next_sibling()
+        if next_sibling.name == "ul":
+            list_of_characters = []
+            for li in next_sibling.find_all("li"):
+                character = li.find("a")
+                if not character or not character.get("title"):
+                    continue
+                list_of_characters.append(
+                    Character(title=character.get("title"), href=character.get("href"))
+                )
+            chapters.append(Chapter(chapter=chapter_idx, characters=list_of_characters))
+            chapter_idx += 1
+        elif next_sibling.name == "table":
+            list_of_characters = []
+            for tr in next_sibling.find_all("tr"):
+                td = tr.find("td")
+                character = td.find("a")
+                if not character or not character.get("title"):
+                    continue
+                list_of_characters.append(
+                    Character(title=character.get("title"), href=character.get("href"))
+                )
+            chapters.append(Chapter(chapter=chapter_idx, characters=list_of_characters))
+            chapter_idx += 1
+        elif next_sibling.name == "dl":  # For chapters with no new characters
+            chapters.append(Chapter(chapter=chapter_idx, characters=[]))
+            chapter_idx += 1
+        elif (
+            next_sibling.name == "p"
+        ):  # For some chapters (Book 6: Chapter 25) with no new characters
+            chapters.append(Chapter(chapter=chapter_idx, characters=[]))
+            chapter_idx += 1
+    return chapters
+```
+
+Finally, we can put everything together to scrape the list of characters from the wiki. We define a <code>scrape</code> method that takes a dictionary of book numbers and their corresponding URLs as an argument and returns a dictionary of book numbers and a list of <code>Chapter</code> objects. We use the <code>tqdm</code> library to display a progress bar while the scraping is in progress.
+```python
+def scrape(book_url: dict[int, str]) -> None:
+    books = {}
+    for book, url in tqdm(book_url.items()):
+        characters_by_chapter = get_characters_by_chapter(url)
+        for chapter in characters_by_chapter:
+            for character in chapter.characters:
+                character.enrich()
+        books[book] = characters_by_chapter
+    return books
+```

@@ -10,15 +10,15 @@ export default function BlogLayout({ meta, children }) {
   return (
     <section className="mt-[44px] md:mt-[60px]  relative !overflow-hidden">
       {/* TOC */}
-      <TableOfContents
+      {/* <TableOfContents
         isTOCActive={isTOCActive}
         setIsTOCActive={setIsTOCActive}
         tableOfContents={meta.tableOfContents}
-      />
+      /> */}
 
       {/* Blog Content */}
       <section
-        className="p-5 sm:pt-10 relative font-barlow prose dark:prose-invert md:ml-[35%] lg:ml-[30%] print:!mx-auto"
+        className="p-5 sm:pt-10 relative font-barlow prose dark:prose-invert print:!mx-auto"
         style={{
           maxWidth: "800px",
           opacity: `${isTOCActive} && "0.3"`,

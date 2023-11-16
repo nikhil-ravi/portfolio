@@ -7,7 +7,8 @@ import {
   popUpFromBottomForText,
 } from "@/content/FramerMotionVariants";
 import { motion } from "framer-motion";
-import OverallGraph from "@/components/HarryPotter/Graph";
+import Graph from "@/components/HarryPotter/Graph";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
         whileInView="visible"
         variants={FadeContainer}
         viewport={{ once: true }}
-        className="grid place-content-center py-20  min-h-screen"
+        className="grid place-content-center min-h-screen"
       >
         <div className="w-full flex flex-col p-5 gap-3 select-none text-center ">
           <motion.h1
@@ -34,7 +35,15 @@ export default function Home() {
           </motion.p>
         </div>
         <motion.div variants={popUp}>
-          <OverallGraph />
+          <Graph />
+        </motion.div>
+        <motion.div
+          variants={{ ...opacityVariant, ...popUpFromBottomForText }}
+          className="flex flex-col gap-5 items-center"
+        >
+          <div className="flex items-center gap-2 px-5 py-2 border rounded-md border-gray-500 dark:border-gray-400 select-none  hover:bg-gray-100 dark:hover:bg-neutral-800 outline-none">
+            <Link href="/harry-potter-network/dashboard">Read More...</Link>
+          </div>
         </motion.div>
       </motion.section>
     </div>

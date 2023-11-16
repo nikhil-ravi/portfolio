@@ -67,6 +67,6 @@ module.exports = [
     githubURL: "https://github.com/nikhil-ravi/Harry-Potter-Network",
     tools: ["Python", "Neo4j", "Cytoscape.js", "SpaCy", "FastCoref"],
     pinned: true,
-    previewURL: "/harry-potter-network",
+    previewURL: "harry-potter-network",
   },
 ];
