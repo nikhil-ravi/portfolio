@@ -32,6 +32,7 @@ module.exports = withContentlayer(
         "www.pngfind.com",
         "photos.google.com",
         "photos.app.goo.gl",
+        "pics.craiyon.com",
       ],
     },
   })

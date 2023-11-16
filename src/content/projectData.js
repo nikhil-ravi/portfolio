@@ -60,6 +60,25 @@ module.exports = [
   },
   {
     id: 5,
+    name: "Elo Rating for IPL Teams",
+    coverURL:
+      "https://pics.craiyon.com/2023-10-14/30d98f9a1a334a78b8f1ed5dbd4327d6.webp",
+    description:
+      "Adapting the Elo rating system to rank IPL teams based on their performance in the league.",
+    githubURL: "https://github.com/nikhil-ravi/ipl-elo",
+    tools: [
+      "Python",
+      "Pandas",
+      "Elo Rating System",
+      "Data Science",
+      "Next.js",
+      "Nivo Charts",
+    ],
+    pinned: true,
+    previewURL: "ipl-elo",
+  },
+  {
+    id: 6,
     name: "Harry Potter Interaction Network",
     coverURL: "https://imgur.com/hkoDtP7.png",
     description:
