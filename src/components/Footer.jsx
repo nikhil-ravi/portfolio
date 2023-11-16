@@ -4,14 +4,14 @@ import { FadeContainer, popUp } from "@/content/FramerMotionVariants";
 import { navigationRoutes } from "@/content/navigationRoutes";
 import { motion } from "framer-motion";
 import { HiOutlineQrcode } from "react-icons/hi";
-import useSWR from "swr";
 import WhenPlaying from "./Footer/WhenPlaying";
 import NotPlaying from "./Footer/NotPlaying";
 import FooterLink from "./Footer/FooterLink";
-// Not create yet
-import fetcher from "@/lib/fetcher";
 import socialMedia from "@/content/socialMedia";
+import useSWR from "swr";
+import fetcher from "@/lib/fetcher";
 
+export const revalidate = 10;
 export default function Footer({ setShowQR, showQR }) {
   const { data: currentSong } = useSWR("/api/now-playing", fetcher);
   return (
