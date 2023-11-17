@@ -41,7 +41,7 @@ const EloLine = () => {
         plugins: {
           legend: {
             position: "right",
-            align: "end",
+            align: "center",
             labels: {
               usePointStyle: true,
             },

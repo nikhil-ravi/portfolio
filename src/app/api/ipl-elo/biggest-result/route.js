@@ -1,5 +1,7 @@
 import { promises as fsPromises } from "fs";
 
+export const revalidate = 0;
+
 export async function GET(response) {
   const types = ["upsets", "wins"];
   const data = {};
