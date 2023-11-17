@@ -23,7 +23,6 @@ const RankTableSwarm = () => {
       ])
     )
     .filter((d) => (d.eloRank !== null) & (d.tableRank !== null));
-  console.log(data_);
   const groups = [...new Set(data_.map((d) => d.eloRank))];
   groups.sort((a, b) => a - b);
   return (
