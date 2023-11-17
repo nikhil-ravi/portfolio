@@ -1,3 +1,5 @@
+"use client";
+
 import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
 import Tooltip from "./Rank/SwarmTooltip";
 import { teamColors } from "@/content/IPLElo/constants";
@@ -5,16 +7,30 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const RankTableSwarm = () => {
-  const { data } = useSWR("/api/ipl-elo/rank?type=swarm", fetcher);
+  const { data } = useSWR("/api/ipl-elo?type=season-end-rank", fetcher);
   if (!data) return null;
-
-  const groups = [...new Set(data.map((d) => d.eloRank))];
+  const data_ = [].concat
+    .apply(
+      [],
+      data[0].map((datum) => [
+        ...datum.data.map((d) => ({
+          id: datum.id + "." + d.x,
+          eloRank: d.y,
+          tableRank: d.table,
+          elo: d.elo,
+          year: d.x,
+        })),
+      ])
+    )
+    .filter((d) => (d.eloRank !== null) & (d.tableRank !== null));
+  console.log(data_);
+  const groups = [...new Set(data_.map((d) => d.eloRank))];
   groups.sort((a, b) => a - b);
   return (
     <div className="h-[520px]">
       {data && (
         <ResponsiveSwarmPlot
-          data={data}
+          data={data_}
           groups={groups}
           groupBy="eloRank"
           identity="id"

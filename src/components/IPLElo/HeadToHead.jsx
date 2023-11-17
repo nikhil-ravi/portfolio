@@ -1,3 +1,5 @@
+"use client";
+
 import { teamColors } from "@/content/IPLElo/constants";
 import { theme } from "@/content/IPLElo/nivoTheme";
 import { ResponsiveChord } from "@nivo/chord";
@@ -5,7 +7,7 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const HeadToHead = () => {
-  const { data } = useSWR("/api/ipl-elo/head-to-head", fetcher);
+  const { data } = useSWR("/api/ipl-elo?type=head-to-head", fetcher);
   return (
     <div className="h-[520px]">
       {data && (

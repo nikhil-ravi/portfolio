@@ -30,7 +30,7 @@ ChartJS.register(
 );
 
 const EloLine = () => {
-  const { data } = useSWR("/api/ipl-elo/elo?type=chartjs", fetcher);
+  const { data } = useSWR("/api/ipl-elo?type=elo", fetcher);
   return data ? (
     <Line
       datasetIdKey="elo"

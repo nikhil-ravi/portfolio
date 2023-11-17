@@ -1,3 +1,5 @@
+"use client";
+
 import { teamColors } from "@/content/IPLElo/constants";
 import { theme } from "@/content/IPLElo/nivoTheme";
 import { ResponsiveBoxPlot } from "@nivo/boxplot";
@@ -5,7 +7,7 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const EloBox = () => {
-  const { data } = useSWR("/api/ipl-elo/elo?type=box", fetcher);
+  const { data } = useSWR("/api/ipl-elo?type=box", fetcher);
   return (
     <div className="h-[520px]">
       {data && (

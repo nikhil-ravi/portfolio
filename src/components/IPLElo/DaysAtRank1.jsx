@@ -1,15 +1,17 @@
+"use client";
+
 import { theme } from "@/content/IPLElo/nivoTheme";
 import { ResponsivePie } from "@nivo/pie";
 import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const DaysAtRank1 = () => {
-  const { data } = useSWR("/api/ipl-elo/rank?type=days", fetcher);
+  const { data } = useSWR("/api/ipl-elo?type=days-at-rank-1", fetcher);
   return (
     <div className="h-[520px]">
       {data && (
         <ResponsivePie
-          data={data}
+          data={data[0]}
           value={"days"}
           colors={{ datum: "data.color" }}
           margin={{ top: 40, right: 80, bottom: 80, left: 80 }}

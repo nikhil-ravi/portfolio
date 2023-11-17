@@ -8,12 +8,12 @@ import fetcher from "@/lib/fetcher";
 import { teamColors } from "@/content/IPLElo/constants";
 
 const RankBump = () => {
-  const { data } = useSWR("/api/ipl-elo/rank", fetcher);
+  const { data } = useSWR("/api/ipl-elo?type=season-end-rank", fetcher);
   return (
     <div className="h-[520px]">
       {data && (
         <ResponsiveBump
-          data={data}
+          data={data[0]}
           colors={({ id }) => teamColors[id]}
           lineWidth={3}
           activeLineWidth={6}
