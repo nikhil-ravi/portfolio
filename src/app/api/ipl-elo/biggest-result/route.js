@@ -5,7 +5,7 @@ export async function GET(response) {
   const data = {};
 
   for (const type of types) {
-    const fileUrl = `src/app/api/biggest-result/${type}.json`;
+    const fileUrl = `src/app/api/ipl-elo/biggest-result/${type}.json`;
     const fileContent = await fsPromises.readFile(fileUrl, "utf-8");
     data[type] = JSON.parse(fileContent);
   }
