@@ -13,7 +13,7 @@ import fetcher from "@/lib/fetcher";
 
 export const revalidate = 10;
 export default function Footer({ setShowQR, showQR }) {
-  const { data: currentSong } = useSWR("/api/now-playing", fetcher);
+  const { data: currentSong } = useSWR("/api/spotify/now-playing", fetcher);
   return (
     <footer className="bg-white dark:bg-darkPrimary text-gray-600 dark:text-gray-400/50 w-screen font-inter p-10 print:hidden">
       <motion.div
