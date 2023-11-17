@@ -15,6 +15,12 @@ import Warning from "./Warning";
 import YouTube from "./YouTube";
 import Graph from "@/components/HarryPotter/Graph";
 import ListOfArticlesInSection from "@/components/HarryPotter/ListOfArticlesInSection";
+import EloLine from "@/components/IPLElo/EloLine";
+import RankBump from "@/components/IPLElo/RankBump";
+import DaysAtRank1 from "../IPLElo/DaysAtRank1";
+import RankTableSwarm from "../IPLElo/RankTableSwarm";
+import EloBox from "../IPLElo/EloBox";
+import HeadToHead from "../IPLElo/HeadToHead";
 
 const MDXComponents = {
   Codepen,
@@ -31,9 +37,18 @@ const MDXComponents = {
   UrlMetaInfo,
   pre: Pre,
   code: Code,
+  a: ({ href, children }) => <Link href={href}>{children}</Link>,
+  // Harry Potter
   Graph,
   ListOfArticlesInSection,
-  a: ({ href, children }) => <Link href={href}>{children}</Link>,
+
+  // IPLElo
+  EloLine,
+  RankBump,
+  DaysAtRank1,
+  RankTableSwarm,
+  EloBox,
+  HeadToHead,
 };
 
 export default MDXComponents;

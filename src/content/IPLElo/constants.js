@@ -1,0 +1,33 @@
+export const teamColors = {
+  CSK: "#FDB913",
+  DC: "#004C93",
+  KKR: "#3A225D",
+  MI: "#005DA0",
+  PBKS: "#AA4545",
+  RR: "#2D4D9D",
+  RCB: "#FF0000",
+  SRH: "#FB643E",
+  GL: "#E8202B",
+  GT: "#F26F42",
+  KTK: "#F28500",
+  PW: "#EDEDED",
+  RPS: "#EDEDED",
+  LSG: "#FFEDED",
+};
+
+export const teamShortNames = {
+  "Chennai Super Kings": "CSK",
+  "Delhi Capitals": "DC",
+  "Kolkata Knight Riders": "KKR",
+  "Mumbai Indians": "MI",
+  "Punjab Kings": "PBKS",
+  "Rajasthan Royals": "RR",
+  "Royal Challengers Bangalore": "RCB",
+  "Sunrisers Hyderabad": "SRH",
+  "Gujarat Lions": "GL",
+  "Gujarat Titans": "GT",
+  "Kochi Tuskers Kerala": "KTK",
+  "Pune Warriors": "PW",
+  "Rising Pune Supergiant": "RPS",
+  "Lucknow Super Giants": "LSG",
+};

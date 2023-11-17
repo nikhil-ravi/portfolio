@@ -46,7 +46,7 @@ export default function TableOfContents({
                 : "-left-full opacity-0"
             } ${
               scrollPercentage > 95 ? "xl:-left-full" : "xl:left-0"
-            } md:left-0 md:opacity-100 md:max-w-[35%] lg:max-w-[30%]  transition-all duration-500 flex flex-col gap-1 !pb-[100px] overflow-y-scroll p-10 md:p-14 h-screen fixed w-full font-barlow bg-darkWhite dark:bg-darkPrimary text-neutral-800 dark:text-gray-200 z-50 `}
+            } md:left-0 md:opacity-100 md:max-w-[35%] lg:max-w-[30%] xl:max-w-[25%] 2xl:max-w-[20%] 3xl:max-w-[15%] transition-all duration-500 flex flex-col gap-1 !pb-[100px] overflow-y-scroll p-10 md:p-14 h-screen fixed w-full font-barlow bg-darkWhite dark:bg-darkPrimary text-neutral-800 dark:text-gray-200 z-50`}
           >
             {/* TOC Search Bar */}
             <div className="relative w-full group mx-auto text-slate-700 dark:text-gray-300  rounded-md -ml-[5px]">
