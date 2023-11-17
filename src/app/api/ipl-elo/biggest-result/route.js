@@ -1,5 +1,7 @@
 import { promises as fsPromises } from "fs";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(response) {
   const types = ["upsets", "wins"];
   const data = {};

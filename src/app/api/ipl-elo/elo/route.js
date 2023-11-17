@@ -1,5 +1,7 @@
 import { promises as fd } from "fs";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(response) {
   const type = response.nextUrl.searchParams.get("type");
   const file_url = `src/app/api/ipl-elo/elo/elo${
