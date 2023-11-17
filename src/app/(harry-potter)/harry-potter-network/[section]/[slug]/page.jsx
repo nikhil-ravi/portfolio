@@ -1,17 +1,15 @@
 import BlogLayout from "@/components/BlogLayout";
 import {
-  getAllDocs,
-  getAllDocsInSection,
-  getDocInSectionBySlug,
+  getDoc,
+  getDocsInProject,
+  getDocsInSection,
 } from "@/lib/fetchArticles";
 import Mdx from "@/components/Mdx";
-import Link from "next/link";
-import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import NextAndPreviousButton from "@/components/MDXComponents/NextAndPreviousButton";
 
 const Article = async ({ params: { section, slug } }) => {
-  const docs = await getAllDocsInSection(section);
-  const doc = await getDocInSectionBySlug(section, slug);
+  const docs = await getDocsInSection("HarryPotter", section);
+  const doc = await getDoc("HarryPotter", section, slug);
   const next = docs.find((d) => d.slugAsParams === doc.next);
   const previous = docs.find((d) => d.slugAsParams === doc.previous);
   const meta = {
@@ -37,7 +35,7 @@ const Article = async ({ params: { section, slug } }) => {
 };
 
 export async function generateStaticParams() {
-  const docs = await getAllDocs();
+  const docs = await getDocsInProject("HarryPotter");
 
   return docs.map((doc) => ({
     section: doc.sectionAsParams,

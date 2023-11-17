@@ -1,9 +1,9 @@
 import BlogLayout from "@/components/BlogLayout";
 import Mdx from "@/components/Mdx";
-import { getAllDocs, getDocInSectionBySlug } from "@/lib/fetchArticles";
+import { getDocsInProject, getDoc } from "@/lib/fetchArticles";
 
 export default async function Page({ params: { section } }) {
-  const doc = await getDocInSectionBySlug(section, section);
+  const doc = await getDoc("HarryPotter", section, section);
   const meta = {
     title: doc.title,
     date: doc.date,
@@ -20,7 +20,7 @@ export default async function Page({ params: { section } }) {
 }
 
 export async function generateStaticParams() {
-  const docs = await getAllDocs();
+  const docs = await getDocsInProject("HarryPotter");
 
   return docs.map((doc) => ({
     section: doc.sectionAsParams,

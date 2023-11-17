@@ -5,9 +5,11 @@ import {
 } from "contentlayer/source-files";
 import readingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 
 const ReadTimeResults = defineNestedType(() => ({
   name: "ReadTimeResults",
@@ -77,13 +79,17 @@ const computedFields = {
     type: "string",
     resolve: (doc) => `/${doc._raw.flattenedPath}`,
   },
-  slugAsParams: {
+  projectAsParams: {
     type: "string",
-    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(2).join("/"),
+    resolve: (doc) => doc._raw.flattenedPath.split("/")[0],
   },
   sectionAsParams: {
     type: "string",
-    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1)[0],
+    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(2)[0],
+  },
+  slugAsParams: {
+    type: "string",
+    resolve: (doc) => doc._raw.flattenedPath.split("/").slice(3).join("/"),
   },
   readingTime: {
     type: "nested",
@@ -103,7 +109,7 @@ const computedFields = {
 
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
-  filePathPattern: `articles/**/*.mdx`,
+  filePathPattern: `***/articles/**/*.mdx`,
   contentType: "mdx",
   fields: {
     title: {
@@ -166,12 +172,13 @@ const rehypeAutolinkHeadingsOptions = {
 };
 
 export default makeSource({
-  contentDirPath: "src/content/HarryPotter",
+  contentDirPath: "src/content",
   documentTypes: [Doc],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [
       rehypeSlug,
+      [rehypeKatex, { output: "mathml" }],
       [rehypePrettyCode, rehypePrettyCodeOptions],
       [rehypeAutolinkHeadings, rehypeAutolinkHeadingsOptions],
     ],

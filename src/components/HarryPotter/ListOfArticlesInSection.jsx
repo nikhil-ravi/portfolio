@@ -1,8 +1,8 @@
-import { getAllDocsInSection } from "@/lib/fetchArticles";
+import { getDocsInSection } from "@/lib/fetchArticles";
 import Link from "next/link";
 
 export default async function ListOfArticlesInSection({ section }) {
-  const stuff = await getAllDocsInSection(section);
+  const stuff = await getDocsInSection("HarryPotter", section);
   if (!stuff) return null;
   return (
     <div>
