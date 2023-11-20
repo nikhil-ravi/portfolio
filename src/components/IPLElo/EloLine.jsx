@@ -15,7 +15,7 @@ import {
 import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
 import useSWR from "swr";
-import fetcher from "@/lib/fetcher";
+import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 
 ChartJS.register(
   CategoryScale,
@@ -30,7 +30,7 @@ ChartJS.register(
 );
 
 const EloLine = () => {
-  const { data, isLoading, error } = useSWR("/api/ipl-elo?type=elo", fetcher);
+  const { data, isLoading, error } = useSWR("elo", jsonBinIoFetcher);
 
   if (isLoading) return "Loading...";
   if (error) return <div>{JSON.stringify(error)}</div>;
@@ -39,7 +39,7 @@ const EloLine = () => {
   return data ? (
     <Line
       datasetIdKey="elo"
-      data={data}
+      data={data.record}
       options={{
         responsive: true,
         animation: false,

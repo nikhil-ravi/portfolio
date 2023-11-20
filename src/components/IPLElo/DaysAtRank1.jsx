@@ -3,22 +3,19 @@
 import { theme } from "@/content/IPLElo/nivoTheme";
 import { ResponsivePie } from "@nivo/pie";
 import useSWR from "swr";
-import fetcher from "@/lib/fetcher";
+import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 
 const DaysAtRank1 = () => {
-  const { data, isLoading, error } = useSWR(
-    "/api/ipl-elo?type=days-at-rank-1",
-    fetcher
-  );
+  const { data, isLoading, error } = useSWR("days-at-rank-1", jsonBinIoFetcher);
   if (isLoading) return "Loading...";
   if (error) return <div>{JSON.stringify(error)}</div>;
   if (!data) return "No data found";
 
   return (
     <div className="h-[520px]">
-      {data && (
+      {data.record && (
         <ResponsivePie
-          data={data}
+          data={data.record[0]}
           value={"days"}
           colors={{ datum: "data.color" }}
           margin={{ top: 40, right: 80, bottom: 80, left: 80 }}

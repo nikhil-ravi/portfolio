@@ -4,12 +4,12 @@ import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
 import Tooltip from "./Rank/SwarmTooltip";
 import { teamColors } from "@/content/IPLElo/constants";
 import useSWR from "swr";
-import fetcher from "@/lib/fetcher";
+import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 
 const RankTableSwarm = () => {
   const { data, isLoading, error } = useSWR(
-    "/api/ipl-elo?type=season-end-rank",
-    fetcher
+    "season-end-rank",
+    jsonBinIoFetcher
   );
 
   if (isLoading) return "Loading...";
@@ -19,7 +19,7 @@ const RankTableSwarm = () => {
   const data_ = [].concat
     .apply(
       [],
-      data.map((datum) => [
+      data.record[0].map((datum) => [
         ...datum.data.map((d) => ({
           id: datum.id + "." + d.x,
           eloRank: d.y,

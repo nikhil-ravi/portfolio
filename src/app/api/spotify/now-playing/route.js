@@ -1,9 +1,9 @@
 import { currentlyPlayingSong } from "@/lib/spotify";
+import { NextResponse } from "next/server";
 
-// export const revalidate = 10;
 export const dynamic = "force-dynamic";
 
-export async function GET(res) {
+export async function GET(request) {
   const response = await currentlyPlayingSong();
   if (response.status === 204 || response.status > 400) {
     return new Response(JSON.stringify({ isPlaying: false }));
@@ -20,5 +20,5 @@ export async function GET(res) {
     songUrl: song.item.external_urls.spotify,
   };
 
-  return new Response(JSON.stringify(data));
+  return NextResponse.json(data);
 }
