@@ -3,26 +3,20 @@
 import { teamColors } from "@/content/IPLElo/constants";
 import { theme } from "@/content/IPLElo/nivoTheme";
 import { ResponsiveChord } from "@nivo/chord";
-import useSWR from "swr";
-import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { headToHead as data } from "@/content/IPLElo/data/headToHead";
 
 const HeadToHead = () => {
-  const { data, isLoading, error } = useSWR("head-to-head", jsonBinIoFetcher);
-
-  if (isLoading)
+  if (!data)
     return (
       <Skeleton className="h-[520px] items-center justify-center m-auto" />
     );
-  if (error) return <div className="h-[520px]">{JSON.stringify(error)}</div>;
-  if (!data) return <div className="h-[520px]">No data found!</div>;
-
   return (
     <div className="h-[520px]">
       <ResponsiveChord
-        data={data.record.data}
-        keys={data.record.index}
+        data={data.data}
+        keys={data.index}
         margin={{ top: 60, right: 60, bottom: 90, left: 60 }}
         valueFormat=".2f"
         padAngle={0.02}

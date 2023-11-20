@@ -14,10 +14,9 @@ import {
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
-import useSWR from "swr";
-import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { elo as data } from "@/content/IPLElo/data/elo";
 
 ChartJS.register(
   CategoryScale,
@@ -32,19 +31,14 @@ ChartJS.register(
 );
 
 const EloLine = () => {
-  const { data, isLoading, error } = useSWR("elo", jsonBinIoFetcher);
-
-  if (isLoading)
+  if (!data)
     return (
       <Skeleton className="h-[520px] items-center justify-center m-auto" />
     );
-  if (error) return <div className="h-[520px]">{JSON.stringify(error)}</div>;
-  if (!data) return <div className="h-[520px]">No data found!</div>;
-
-  return data ? (
+  return (
     <Line
       datasetIdKey="elo"
-      data={data.record}
+      data={data}
       options={{
         responsive: true,
         animation: false,
@@ -81,8 +75,6 @@ const EloLine = () => {
         },
       }}
     />
-  ) : (
-    <> </>
   );
 };
 

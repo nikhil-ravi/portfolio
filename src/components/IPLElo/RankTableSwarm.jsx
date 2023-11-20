@@ -3,25 +3,19 @@
 import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
 import Tooltip from "./Rank/SwarmTooltip";
 import { teamColors } from "@/content/IPLElo/constants";
-import useSWR from "swr";
-import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { seasonEndRank as data } from "@/content/IPLElo/data/rank";
 
 const RankTableSwarm = () => {
-  const { data, isLoading, error } = useSWR(
-    "season-end-rank",
-    jsonBinIoFetcher
-  );
-
-  if (isLoading) return <Skeleton className="h-[520px] " />;
-  if (error) return <div className="h-[520px]">{JSON.stringify(error)}</div>;
-  if (!data) return <div className="h-[520px]">No data found!</div>;
-
+  if (!data)
+    return (
+      <Skeleton className="h-[520px] items-center justify-center m-auto" />
+    );
   const data_ = [].concat
     .apply(
       [],
-      data.record[0].map((datum) => [
+      data.map((datum) => [
         ...datum.data.map((d) => ({
           id: datum.id + "." + d.x,
           eloRank: d.y,

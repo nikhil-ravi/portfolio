@@ -3,29 +3,20 @@
 import { ResponsiveBump } from "@nivo/bump";
 import { theme } from "@/content/IPLElo/nivoTheme";
 import Point from "./Rank/Point";
-import useSWR from "swr";
-import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 import { teamColors } from "@/content/IPLElo/constants";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { seasonEndRank as data } from "@/content/IPLElo/data/rank";
 
 const RankBump = () => {
-  const { data, isLoading, error } = useSWR(
-    "season-end-rank",
-    jsonBinIoFetcher
-  );
-
-  if (isLoading)
+  if (!data)
     return (
       <Skeleton className="h-[520px] items-center justify-center m-auto" />
     );
-  if (error) return <div className="h-[520px]">{JSON.stringify(error)}</div>;
-  if (!data) return <div className="h-[520px]">No data found!</div>;
-
   return (
     <div className="h-[520px]">
       <ResponsiveBump
-        data={data.record[0]}
+        data={data}
         colors={({ id }) => teamColors[id]}
         lineWidth={3}
         activeLineWidth={6}

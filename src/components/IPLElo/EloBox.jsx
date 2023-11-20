@@ -3,25 +3,19 @@
 import { teamColors } from "@/content/IPLElo/constants";
 import { theme } from "@/content/IPLElo/nivoTheme";
 import { ResponsiveBoxPlot } from "@nivo/boxplot";
-import useSWR from "swr";
-import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { quantiles as data } from "@/content/IPLElo/data/quantiles";
 
 const EloBox = () => {
-  const { data, isLoading, error } = useSWR("box", jsonBinIoFetcher);
-
-  if (isLoading)
+  if (!data)
     return (
       <Skeleton className="h-[520px] items-center justify-center m-auto" />
     );
-  if (error) return <div className="h-[520px]">{JSON.stringify(error)}</div>;
-  if (!data) return <div className="h-[520px]">No data found!</div>;
-
   return (
     <div className="h-[520px]">
       <ResponsiveBoxPlot
-        data={data.record}
+        data={data}
         margin={{ top: 60, right: 140, bottom: 60, left: 60 }}
         colorBy="group"
         colors={({ group }) => teamColors[group]}
