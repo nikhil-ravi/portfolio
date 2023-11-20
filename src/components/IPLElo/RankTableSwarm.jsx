@@ -7,12 +7,19 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const RankTableSwarm = () => {
-  const { data } = useSWR("/api/ipl-elo?type=season-end-rank", fetcher);
-  if (!data) return null;
+  const { data, isLoading, error } = useSWR(
+    "/api/ipl-elo?type=season-end-rank",
+    fetcher
+  );
+
+  if (isLoading) return "Loading...";
+  if (error) return <div>{JSON.stringify(error)}</div>;
+  if (!data) return "No data found";
+
   const data_ = [].concat
     .apply(
       [],
-      data[0].map((datum) => [
+      data.map((datum) => [
         ...datum.data.map((d) => ({
           id: datum.id + "." + d.x,
           eloRank: d.y,
@@ -23,8 +30,10 @@ const RankTableSwarm = () => {
       ])
     )
     .filter((d) => (d.eloRank !== null) & (d.tableRank !== null));
-  const groups = [...new Set(data_.map((d) => d.eloRank))];
-  groups.sort((a, b) => a - b);
+  const groups = [...new Set(data_.map((d) => d.eloRank))].sort(
+    (a, b) => a - b
+  );
+
   return (
     <div className="h-[520px]">
       {data && (

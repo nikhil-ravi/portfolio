@@ -30,7 +30,12 @@ ChartJS.register(
 );
 
 const EloLine = () => {
-  const { data } = useSWR("/api/ipl-elo?type=elo", fetcher);
+  const { data, isLoading, error } = useSWR("/api/ipl-elo?type=elo", fetcher);
+
+  if (isLoading) return "Loading...";
+  if (error) return <div>{JSON.stringify(error)}</div>;
+  if (!data) return "No data found";
+
   return data ? (
     <Line
       datasetIdKey="elo"

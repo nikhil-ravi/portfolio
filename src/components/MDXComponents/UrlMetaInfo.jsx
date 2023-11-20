@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 function UrlMetaInfo({ url }) {
-  const [metaData, setMetaData] = (useState < MetaData) | (null > null);
+  const [metaData, setMetaData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -61,7 +61,17 @@ In another scenario, if the Mumbai Indians are playing at home but have lost the
 $$ \hat{R}_{MI} = R_{MI} + H $$  
 $$ \hat{R}_{CSK} = R_{CSK} + T $$
 
-The expected outcome of the match is then calculated using the intermediate Elo ratings of the two teams. This refined approach captures cricket intricacies, offering a clearer understanding of team strengths amid home advantages and toss outcomes.
+The expected outcome of the match is then calculated using the intermediate Elo ratings of the two teams. 
+
+#### Auction Dynamics
+
+At the end of each season, the IPL hosts a player auction, reshaping team compositions and influencing strengths. To normalize team ratings after this annual transformation, we introduce a normalization factor ($A$). The new Elo rating is calculated as:
+
+$$R_{new} = R_{old} + \frac{1500-R_{old}}{A}.$$
+
+This normalization process ensures that team ratings converge towards the league average (1500), accounting for the adjustments made in player compositions during the auction.
+
+This refined approach captures cricket intricacies, offering a clearer understanding of team strengths amid the nuances of home advantages, toss outcomes, and the annual player auction dynamics.
 
 ### Dataset
 

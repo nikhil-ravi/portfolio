@@ -6,12 +6,19 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const DaysAtRank1 = () => {
-  const { data } = useSWR("/api/ipl-elo?type=days-at-rank-1", fetcher);
+  const { data, isLoading, error } = useSWR(
+    "/api/ipl-elo?type=days-at-rank-1",
+    fetcher
+  );
+  if (isLoading) return "Loading...";
+  if (error) return <div>{JSON.stringify(error)}</div>;
+  if (!data) return "No data found";
+
   return (
     <div className="h-[520px]">
       {data && (
         <ResponsivePie
-          data={data[0]}
+          data={data}
           value={"days"}
           colors={{ datum: "data.color" }}
           margin={{ top: 40, right: 80, bottom: 80, left: 80 }}

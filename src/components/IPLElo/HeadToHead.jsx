@@ -7,7 +7,15 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 
 const HeadToHead = () => {
-  const { data } = useSWR("/api/ipl-elo?type=head-to-head", fetcher);
+  const { data, isLoading, error } = useSWR(
+    "/api/ipl-elo?type=head-to-head",
+    fetcher
+  );
+
+  if (isLoading) return "Loading...";
+  if (error) return <div>{JSON.stringify(error)}</div>;
+  if (!data) return "No data found";
+
   return (
     <div className="h-[520px]">
       {data && (
