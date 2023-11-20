@@ -42,7 +42,7 @@ export default function Home() {
           className="flex flex-col gap-5 items-center"
         >
           <div className="flex items-center gap-2 px-5 py-2 border rounded-md border-gray-500 dark:border-gray-400 select-none  hover:bg-gray-100 dark:hover:bg-neutral-800 outline-none">
-            <Link href="/harry-potter-network/dashboard">Read More...</Link>
+            Coming Soon...
           </div>
         </motion.div>
       </motion.section>
