@@ -48,10 +48,10 @@ export default function Project({ project }) {
           {project.previewURL && (
             <Link
               href={project.previewURL}
-              passHref
+              // passHref
               title="Live Preview"
-              target="_blank"
-              rel="noopener noreferrer"
+              // target="_blank"
+              // rel="noopener noreferrer"
               className="text-gray-500 hover:text-black dark:hover:text-white"
             >
               <MdOutlineLink className="w-6 h-6 hover:scale-110 active:scale-90 transition-all" />

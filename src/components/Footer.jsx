@@ -4,16 +4,18 @@ import { FadeContainer, popUp } from "@/content/FramerMotionVariants";
 import { navigationRoutes } from "@/content/navigationRoutes";
 import { motion } from "framer-motion";
 import { HiOutlineQrcode } from "react-icons/hi";
-import useSWR from "swr";
 import WhenPlaying from "./Footer/WhenPlaying";
 import NotPlaying from "./Footer/NotPlaying";
 import FooterLink from "./Footer/FooterLink";
-// Not create yet
-import fetcher from "@/lib/fetcher";
 import socialMedia from "@/content/socialMedia";
+import useSWR from "swr";
+import fetcher from "@/lib/fetcher";
 
-export default function Footer({ setShowQR, showQR }) {
-  const { data: currentSong } = useSWR("/api/now-playing", fetcher);
+export const revalidate = 10;
+
+export default function Footer() {
+  const { data: currentSong } = useSWR("/api/spotify/now-playing", fetcher);
+
   return (
     <footer className="bg-white dark:bg-darkPrimary text-gray-600 dark:text-gray-400/50 w-screen font-inter p-10 print:hidden">
       <motion.div
@@ -57,15 +59,6 @@ export default function Footer({ setShowQR, showQR }) {
           </div>
         </section>
       </motion.div>
-
-      <div className="w-full flex justify-center">
-        <div
-          onClick={() => setShowQR(!showQR)}
-          className="bg-gray-700 text-white p-4 rounded-full cursor-pointer transition-all active:scale-90 hover:scale-105"
-        >
-          <HiOutlineQrcode className="w-6 h-6 " />
-        </div>
-      </div>
     </footer>
   );
 }
