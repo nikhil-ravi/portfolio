@@ -6,6 +6,8 @@ import Point from "./Rank/Point";
 import useSWR from "swr";
 import { jsonBinIoFetcher } from "@/lib/jsonbinio";
 import { teamColors } from "@/content/IPLElo/constants";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const RankBump = () => {
   const { data, isLoading, error } = useSWR(
@@ -13,9 +15,12 @@ const RankBump = () => {
     jsonBinIoFetcher
   );
 
-  if (isLoading) return "Loading...";
-  if (error) return <div>{JSON.stringify(error)}</div>;
-  if (!data) return "No data found";
+  if (isLoading)
+    return (
+      <Skeleton className="h-[520px] items-center justify-center m-auto" />
+    );
+  if (error) return <div className="h-[520px]">{JSON.stringify(error)}</div>;
+  if (!data) return <div className="h-[520px]">No data found!</div>;
 
   return (
     <div className="h-[520px]">
