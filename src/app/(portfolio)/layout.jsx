@@ -2,18 +2,14 @@
 
 import "../globals.css";
 
-import { useState } from "react";
 import { DarkModeProvider } from "@/context/DarkModeProvider";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
-import QRCodeContainer from "@/components/QRCodeContainer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
 export default function RootLayout({ children }) {
-  const [showQR, setShowQR] = useState(false);
-
   return (
     <DarkModeProvider>
       <html lang="en">
@@ -36,9 +32,8 @@ export default function RootLayout({ children }) {
           <main>
             <section className="pageTop min-h-screen">{children}</section>
           </main>
-          <Footer setShowQR={setShowQR} showQR={showQR} />
+          <Footer />
           <ScrollToTopButton />
-          <QRCodeContainer showQR={showQR} setShowQR={setShowQR} />
         </body>
       </html>
     </DarkModeProvider>

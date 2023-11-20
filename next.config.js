@@ -33,6 +33,7 @@ module.exports = withContentlayer(
         "photos.google.com",
         "photos.app.goo.gl",
         "pics.craiyon.com",
+        "raw.githubusercontent.com",
       ],
     },
   })

@@ -1,14 +1,14 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 
 import ScrollProgressBar from "@/components/ScrollProgressBar";
-import TableOfContents from "@/components/TableOfContents";
+// import TableOfContents from "@/components/TableOfContents";
 
 export default function BlogLayout({ meta, children }) {
-  const [isTOCActive, setIsTOCActive] = useState(false);
+  // const [isTOCActive, setIsTOCActive] = useState(false);
   return (
-    <section className="mt-[44px] md:mt-[60px]  relative !overflow-hidden border-2 border-red-500">
+    <section className="mt-[44px] md:mt-[60px]  relative !overflow-hidden">
       {/* TOC */}
       {/* <TableOfContents
         isTOCActive={isTOCActive}
@@ -22,7 +22,7 @@ export default function BlogLayout({ meta, children }) {
         //  "md:ml-[35%] lg:ml-[30%] xl:ml-[25%] 2xl:ml-[20%] 3xl:ml-[15%]" // TOC width
         style={{
           maxWidth: "1800px",
-          opacity: `${isTOCActive} && "0.3"`,
+          // opacity: `${isTOCActive} && "0.3"`,
           margin: `${meta.tableOfContents.length <= 0} && "auto"`,
         }}
       >
