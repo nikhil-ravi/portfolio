@@ -13,6 +13,7 @@ import Tip from "./Tip";
 import UrlMetaInfo from "./UrlMetaInfo";
 import Warning from "./Warning";
 import YouTube from "./YouTube";
+
 import Graph from "@/components/HarryPotter/Graph";
 import ListOfArticlesInSection from "@/components/HarryPotter/ListOfArticlesInSection";
 import EloLine from "@/components/IPLElo/EloLine";
@@ -21,6 +22,8 @@ import DaysAtRank1 from "../IPLElo/DaysAtRank1";
 import RankTableSwarm from "../IPLElo/RankTableSwarm";
 import EloBox from "../IPLElo/EloBox";
 import HeadToHead from "../IPLElo/HeadToHead";
+
+import CirclePacking from "../ASOIAF/CirclePacking";
 
 const MDXComponents = {
   Codepen,
@@ -49,6 +52,9 @@ const MDXComponents = {
   RankTableSwarm,
   EloBox,
   HeadToHead,
+
+  // ASOIAF
+  CirclePacking,
 };
 
 export default MDXComponents;
