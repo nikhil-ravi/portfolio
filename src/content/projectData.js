@@ -24,6 +24,32 @@ module.exports = [
   },
   {
     id: 2,
+    name: "FicRec",
+    coverURL:
+      "https://pics.craiyon.com/2023-09-13/5701ecbc5b994e84baecf05c021dfdd0.webp",
+    description:
+      "FicRec is a fanfiction recommendation engine that uses a neural network to embed search queries and fanfiction summaries into a common vector space. Given a search query, FicRec will return a list of fanfictions that are semantically similar to the query.",
+    githubURL: "https://github.com/nikhil-ravi/FicRec",
+    previewURL: "https://ficrec.nikhilravi.com/",
+    tools: [
+      "data-science",
+      "machine-learning",
+      "deep-learning",
+      "nextjs",
+      "scraping",
+      "recommendation-engine",
+      "fanfiction",
+      "similarity-search",
+      "text-embedding",
+      "vector-database",
+      "huggingface-transformers",
+      "pineconedb",
+      "transformers.js",
+    ],
+    pinned: true,
+  },
+  {
+    id: 3,
     name: "Elo Rating for IPL Teams",
     coverURL:
       "https://pics.craiyon.com/2023-10-14/30d98f9a1a334a78b8f1ed5dbd4327d6.webp",
@@ -42,7 +68,7 @@ module.exports = [
     previewURL: "ipl-elo",
   },
   {
-    id: 3,
+    id: 4,
     name: "Harry Potter Interaction Network",
     coverURL:
       "https://raw.githubusercontent.com/nikhil-ravi/Harry-Potter-Network/main/screenshots/network.png",
@@ -54,7 +80,7 @@ module.exports = [
     previewURL: "harry-potter-network",
   },
   {
-    id: 4,
+    id: 5,
     name: "LeetScrape",
     coverURL: "https://imgur.com/jFDz2ou.png",
     description: `LeetScrape is an efficient Python package designed to scrape problem statements and basic test cases from LeetCode.com.
@@ -70,23 +96,13 @@ module.exports = [
     pinned: true,
   },
   {
-    id: 5,
+    id: 6,
     name: "Chowkabhara",
     coverURL: "https://imgur.com/hkoDtP7.png",
     description: `Chowka Bara is a two- or four-player board game from India. This game is an example of a “fully observable” system that has an element of chance introduced by the roll of special dice and an element of strategy (the strategy being the pawn the player decides to move after the roll of the dice. With this project we bring this ancient game to people's mobile devices.`,
     githubURL: "https://github.com/nikhil-ravi/chowkabhara",
     // previewURL: "https://leetscrape.chowkabhara.com/",
     tools: ["Python", "Pygame"],
-    pinned: true,
-  },
-  {
-    id: 6,
-    name: "Fanfiction Recommender",
-    coverURL: "https://imgur.com/hkoDtP7.png",
-    description: ``,
-    githubURL: "https://github.com/nikhil-ravi/AO3scraper",
-    // previewURL: "https://leetscrape.chowkabhara.com/",
-    tools: ["Python", "Neo4j"],
     pinned: true,
   },
 ];
